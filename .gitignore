@@ -1,0 +1,13 @@
+bin/com/nexes/manager/
+*.a
+*.class
+*.dll
+*.dylib
+*.exe
+*.o
+*.obj
+*.pyc
+*.pyo
+*.so
+.svn
+_svn
