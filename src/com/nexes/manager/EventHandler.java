@@ -86,7 +86,8 @@ public class EventHandler implements OnClickListener {
 	private int mColor = Color.WHITE;
 	
 	//the list used to feed info into the array adapter and when multi-select is on
-	private ArrayList<String> mDataSource, mMultiSelectData;
+	private ArrayList<String>  mMultiSelectData;
+	private String mDataSource;
 	private TextView mPathLabel;
 	private TextView mInfoLabel;
 
@@ -98,12 +99,19 @@ public class EventHandler implements OnClickListener {
 	 * @param context	The context of the main activity e.g  Main
 	 * @param manager	The FileManager object that was instantiated from Main
 	 */
+//	public EventHandler(Context context, final FileManager manager) {
+//		mContext = context;
+//		mFileMang = manager;
+//		
+//		mDataSource = new ArrayList<String>(mFileMang.setHomeDir
+//						(Environment.getExternalStorageDirectory().getPath()));
+//	}
 	public EventHandler(Context context, final FileManager manager) {
 		mContext = context;
 		mFileMang = manager;
 		
-		mDataSource = new ArrayList<String>(mFileMang.setHomeDir
-						(Environment.getExternalStorageDirectory().getPath()));
+		mDataSource = new String(mFileMang.setHomeDir
+				(Environment.getExternalStorageDirectory().getPath()));
 	}
 	
 	/**
@@ -118,7 +126,7 @@ public class EventHandler implements OnClickListener {
 		mContext = context;
 		mFileMang = manager;
 		
-		mDataSource = new ArrayList<String>(mFileMang.getNextDir(location, true));
+		mDataSource = new String(mFileMang.getNextDir(location, true));
 	}
 
 	/**
