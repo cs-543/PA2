@@ -21,7 +21,8 @@ package com.nexes.manager;
 import java.io.File;
 import java.util.ArrayList;
 
-import org.json.simple.JSONObject;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONValue;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -89,7 +90,7 @@ public class EventHandler implements OnClickListener {
 	
 	//the list used to feed info into the array adapter and when multi-select is on
 	private ArrayList<String> mDataSource, mMultiSelectData;
-	private JSONObject mDataSource_json;
+	private JSONArray mDataSource_jsonArray;
 	private String mDataSource_string;
 	private TextView mPathLabel;
 	private TextView mInfoLabel;
@@ -452,13 +453,21 @@ public class EventHandler implements OnClickListener {
 	 * @param position	the indext of the arraylist holding the dir content
 	 * @return the data in the arraylist at position (position)
 	 */
+//	public String getData(int position) {
+//		
+//		if(position > mDataSource.size() - 1 || position < 0)
+//			return null;
+//		//from Json get data by position
+//		
+//		return mDataSource.get(position);
+//	}
 	public String getData(int position) {
 		
-		if(position > mDataSource.size() - 1 || position < 0)
+		if(position > mDataSource_jsonArray.size() - 1 || position < 0)
 			return null;
 		//from Json get data by position
 		
-		return mDataSource.get(position);
+		return (String) mDataSource_jsonArray.get(position);
 	}
 
 	/**
@@ -479,12 +488,11 @@ public class EventHandler implements OnClickListener {
 	public void updateDirectory(String content) {	
 		
 		
-		if(!mDataSource.isEmpty())
-			mDataSource.clear();
+		// parsing to json array
+		Object obj=JSONValue.parse(content);
 		
-		for(String data : content)
-			mDataSource.add(data);
-		
+		mDataSource_jsonArray = (JSONArray)obj;
+					
 		mDelegate.notifyDataSetChanged();
 	}
 
