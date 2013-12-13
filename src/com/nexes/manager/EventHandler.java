@@ -21,26 +21,28 @@ package com.nexes.manager;
 import java.io.File;
 import java.util.ArrayList;
 
-import android.net.Uri;
-import android.os.AsyncTask;
-import android.os.Environment;
-import android.os.Handler;
-import android.os.Message;
+import org.json.simple.JSONObject;
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Color;
 import android.graphics.Bitmap;
-import android.view.View.OnClickListener;
+import android.graphics.Color;
+import android.net.Uri;
+import android.os.AsyncTask;
+import android.os.Environment;
+import android.os.Handler;
+import android.os.Message;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -87,6 +89,7 @@ public class EventHandler implements OnClickListener {
 	
 	//the list used to feed info into the array adapter and when multi-select is on
 	private ArrayList<String> mDataSource, mMultiSelectData;
+	private JSONObject mDataSource_json;
 	private String mDataSource_string;
 	private TextView mPathLabel;
 	private TextView mInfoLabel;
@@ -453,6 +456,7 @@ public class EventHandler implements OnClickListener {
 		
 		if(position > mDataSource.size() - 1 || position < 0)
 			return null;
+		//from Json get data by position
 		
 		return mDataSource.get(position);
 	}
@@ -463,7 +467,18 @@ public class EventHandler implements OnClickListener {
 	 * 
 	 * @param content	an ArrayList of the file/folders in the current directory.
 	 */
-	public void updateDirectory(ArrayList<String> content) {	
+//	public void updateDirectory(ArrayList<String> content) {	
+//		if(!mDataSource.isEmpty())
+//			mDataSource.clear();
+//		
+//		for(String data : content)
+//			mDataSource.add(data);
+//		
+//		mDelegate.notifyDataSetChanged();
+//	}
+	public void updateDirectory(String content) {	
+		
+		
 		if(!mDataSource.isEmpty())
 			mDataSource.clear();
 		
