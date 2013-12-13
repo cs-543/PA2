@@ -18,22 +18,24 @@
 
 package com.nexes.manager;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.Stack;
-import java.io.File;
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.Stack;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 import java.util.zip.ZipOutputStream;
 
 import android.util.Log;
+
+import com.google.gson.Gson;
 
 /**
  * This class is completely modular, which is to say that it has
@@ -88,7 +90,7 @@ public class FileManager {
 	 * This will return a string of the current home path.
 	 * @return	the home directory
 	 */
-	public ArrayList<String> setHomeDir(String name) {
+	public String setHomeDir(String name) {
 		//This will eventually be placed as a settings item
 		mPathStack.clear();
 		mPathStack.push("/");
@@ -118,7 +120,7 @@ public class FileManager {
 	 * This will return a string that represents the path of the previous path
 	 * @return	returns the previous path
 	 */
-	public ArrayList<String> getPreviousDir() {
+	public String getPreviousDir() {
 		int size = mPathStack.size();
 		
 		if (size >= 2)
@@ -136,7 +138,7 @@ public class FileManager {
 	 * @param isFullPath
 	 * @return
 	 */
-	public ArrayList<String> getNextDir(String path, boolean isFullPath) {
+	public String getNextDir(String path, boolean isFullPath) {
 		int size = mPathStack.size();
 		
 		if(!path.equals(mPathStack.peek()) && !isFullPath) {
@@ -513,9 +515,10 @@ public class FileManager {
 	 * to update the the list of files to be shown to the user, this is where 
 	 * we do our sorting (by type, alphabetical, etc).
 	 * 
-	 * @return
+	 * @return String!
 	 */
-	private ArrayList<String> populate_list() {
+
+	private String populate_list() {
 		
 		if(!mDirContent.isEmpty())
 			mDirContent.clear();
@@ -539,59 +542,62 @@ public class FileManager {
 			
 			/* sort the arraylist that was made from above for loop */
 			switch(mSortType) {
-				case SORT_NONE:
-					//no sorting needed
-					break;
-					
-				case SORT_ALPHA:
-					Object[] tt = mDirContent.toArray();
-					mDirContent.clear();
-					
-					Arrays.sort(tt, alph);
-					
-					for (Object a : tt){
-						mDirContent.add((String)a);
-					}
-					break;
-					
-				case SORT_SIZE:
-					int index = 0;
-					Object[] size_ar = mDirContent.toArray();
-					String dir = mPathStack.peek();
-					
-					Arrays.sort(size_ar, size);
-					
-					mDirContent.clear();
-					for (Object a : size_ar) {
-						if(new File(dir + "/" + (String)a).isDirectory())
-							mDirContent.add(index++, (String)a);
-						else
-							mDirContent.add((String)a);
-					}
-					break;
-					
-				case SORT_TYPE:
-					int dirindex = 0;
-					Object[] type_ar = mDirContent.toArray();
-					String current = mPathStack.peek();
-					
-					Arrays.sort(type_ar, type);
-					mDirContent.clear();
-					
-					for (Object a : type_ar) {
-						if(new File(current + "/" + (String)a).isDirectory())
-							mDirContent.add(dirindex++, (String)a);
-						else
-							mDirContent.add((String)a);
-					}
-					break;
-			}
+			case SORT_NONE:
+				//no sorting needed
+				break;
 				
+			case SORT_ALPHA:
+				Object[] tt = mDirContent.toArray();
+				mDirContent.clear();
+				
+				Arrays.sort(tt, alph);
+				
+				for (Object a : tt){
+					mDirContent.add((String)a);
+				}
+				break;
+				
+			case SORT_SIZE:
+				int index = 0;
+				Object[] size_ar = mDirContent.toArray();
+				String dir = mPathStack.peek();
+				
+				Arrays.sort(size_ar, size);
+				
+				mDirContent.clear();
+				for (Object a : size_ar) {
+					if(new File(dir + "/" + (String)a).isDirectory())
+						mDirContent.add(index++, (String)a);
+					else
+						mDirContent.add((String)a);
+				}
+				break;
+				
+			case SORT_TYPE:
+				int dirindex = 0;
+				Object[] type_ar = mDirContent.toArray();
+				String current = mPathStack.peek();
+				
+				Arrays.sort(type_ar, type);
+				mDirContent.clear();
+				
+				for (Object a : type_ar) {
+					if(new File(current + "/" + (String)a).isDirectory())
+						mDirContent.add(dirindex++, (String)a);
+					else
+						mDirContent.add((String)a);
+				}
+				break;
+			}
+			
 		} else {
 			mDirContent.add("Emtpy");
 		}
+				
+		String mDirContent_json = new Gson().toJson(mDirContent);
 		
-		return mDirContent;
+		
+		return mDirContent_json;
 	}
 	
 	/*

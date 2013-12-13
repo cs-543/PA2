@@ -1,6 +1,8 @@
-import Rpc.*;
-import java.net.Socket;
+package com.nexes.manager;
+
+
 import java.io.IOException;
+import java.net.Socket;
 
 public class TestInterface_Stub extends Stub implements TestInterface {
     public TestInterface_Stub(Socket s, String uri) throws IOException {

@@ -1,3 +1,5 @@
+package com.nexes.manager;
+
 import Rpc.*;
 
 public interface TestInterface {
