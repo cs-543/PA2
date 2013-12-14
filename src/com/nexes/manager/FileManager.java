@@ -33,6 +33,10 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 import java.util.zip.ZipOutputStream;
 
+import net.sf.json.JSONSerializer;
+
+import org.json.simple.JSONObject;
+
 import android.util.Log;
 
 import com.google.gson.Gson;
@@ -594,10 +598,13 @@ public class FileManager {
 			mDirContent.add("Emtpy");
 		}
 				
-		String mDirContent_json = new Gson().toJson(mDirContent);
+//		JSONObject mDirContent_json = new Gson().toJson(mDirContent);
+		String mDirContent_string = new Gson().toJson(mDirContent);
 		
 		
-		return mDirContent_json;
+		
+		
+		return mDirContent_string;
 	}
 	
 	/*

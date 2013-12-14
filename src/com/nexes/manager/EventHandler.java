@@ -37,6 +37,7 @@ import android.os.AsyncTask;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -111,6 +112,7 @@ public class EventHandler implements OnClickListener {
 //						(Environment.getExternalStorageDirectory().getPath()));
 		mDataSource_string = new String(mFileMang.setHomeDir
 				(Environment.getExternalStorageDirectory().getPath()));
+		Log.d("stringtest","mDatasource_string:"+mDataSource_string);
 	}
 	
 	/**
@@ -636,7 +638,7 @@ public class EventHandler implements OnClickListener {
         	final ViewHolder mViewHolder;
     		int num_items = 0;
     		String temp = mFileMang.getCurrentDir();
-    		File file = new File(temp + "/" + mDataSource.get(position));
+    		File file = new File(temp + "/" + mDataSource_jsonArray.get(position));
     		String[] list = file.list();
     		
     		if(list != null)
