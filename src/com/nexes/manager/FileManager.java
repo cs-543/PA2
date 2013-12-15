@@ -454,9 +454,20 @@ public class FileManager {
 		//ArrayList<String> names = new ArrayList<String>();
 		//search_file(dir, pathName, names);
 		//input output Array List
-		//call method with String 
+		 
 		//return names;
+//		search_file()
+		//call method with String
+		
+		
 		fileman_stub f= new fileman_stub();
+		
+		//String to ArrayList<String>
+		
+		JSONArray.toArrayList(f.searchInDirectory(dir, pathName));
+		
+		
+		//
 		return JSONArray.toArrayList(f.searchInDirectory(dir, pathName));
 	}
 	
@@ -600,12 +611,12 @@ public class FileManager {
 		}
 				
 //		JSONObject mDirContent_json = new Gson().toJson(mDirContent);
-		String mDirContent_string = new Gson().toJson(mDirContent);
+		String mDirContent_jsonString = new Gson().toJson(mDirContent);
 		
 		
 		
 		
-		return mDirContent_string;
+		return mDirContent_jsonString;
 	}
 	
 	/*
@@ -677,7 +688,7 @@ public class FileManager {
 	 * @param fileName	filename that is being searched for
 	 * @param n			ArrayList to populate results
 	 */
-	private void search_file(String dir, String fileName, ArrayList<String> n) {
+	public void search_file(String dir, String fileName, ArrayList<String> n) {
 		File root_dir = new File(dir);
 		String[] list = root_dir.list();
 		
