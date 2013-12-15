@@ -449,11 +449,19 @@ public class FileManager {
 	 * @return
 	 */
 	public ArrayList<String> searchInDirectory(String dir, String pathName) {
+		ArrayList<String> l = JSON.toArrayList(searchInDirectory(String dir, String pathName))
+		return l;		
+	}
+	
+	public String searchInDirectory(String dir, String pathName){
 		ArrayList<String> names = new ArrayList<String>();
 		search_file(dir, pathName, names);
 
 		return names;
 	}
+	
+	
+	
 	
 	/**
 	 * 
