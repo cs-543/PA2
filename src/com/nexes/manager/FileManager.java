@@ -33,9 +33,7 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 import java.util.zip.ZipOutputStream;
 
-import net.sf.json.JSONSerializer;
-
-import org.json.simple.JSONObject;
+import org.json.simple.JSONArray;
 
 import android.util.Log;
 
@@ -453,19 +451,14 @@ public class FileManager {
 	 * @return
 	 */
 	public ArrayList<String> searchInDirectory(String dir, String pathName) {
-		ArrayList<String> l = JSON.toArrayList(searchInDirectory(String dir, String pathName))
-		return l;		
+		//ArrayList<String> names = new ArrayList<String>();
+		//search_file(dir, pathName, names);
+		//input output Array List
+		//call method with String 
+		//return names;
+		fileman_stub f= new fileman_stub();
+		return JSONArray.toArrayList(f.searchInDirectory(dir, pathName));
 	}
-	
-	public String searchInDirectory(String dir, String pathName){
-		ArrayList<String> names = new ArrayList<String>();
-		search_file(dir, pathName, names);
-
-		return names;
-	}
-	
-	
-	
 	
 	/**
 	 * 
