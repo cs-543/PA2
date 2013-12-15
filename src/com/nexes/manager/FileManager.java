@@ -34,6 +34,7 @@ import java.util.zip.ZipInputStream;
 import java.util.zip.ZipOutputStream;
 
 import org.json.simple.JSONArray;
+import org.json.simple.JSONValue;
 
 import android.util.Log;
 
@@ -463,6 +464,19 @@ public class FileManager {
 		fileman_stub f= new fileman_stub();
 		
 		//String to ArrayList<String>
+		
+		String names_jsonString= f.searchInDirectory(dir, pathName);
+		
+		ArrayList<String> names = new ArrayList<String>();     
+		Object obj=JSONValue.parse(names_jsonString);
+		JSONArray jArray = (JSONArray)obj;
+		
+		if (jArray != null) { 
+		   for (int i=0;i<jArray.size();i++){ 
+			   names.add(jArray.get(i).toString());
+		   } 
+		}
+		
 		
 		JSONArray.toArrayList(f.searchInDirectory(dir, pathName));
 		

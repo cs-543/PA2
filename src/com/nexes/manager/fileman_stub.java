@@ -34,5 +34,6 @@ public class fileman_stub implements fileman {
 		fm.search_file(dir, pathName, names);
 		String names_jsonString = new Gson().toJson(names);
 		return names_jsonString;
+		//2013.12.15 1:10
 	}
 }
